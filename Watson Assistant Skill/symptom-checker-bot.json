@@ -1,0 +1,673 @@
+{
+  "intents": [
+    {
+      "intent": "continue",
+      "examples": [
+        {
+          "text": "continue"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Age",
+      "examples": [
+        {
+          "text": "1-25"
+        },
+        {
+          "text": "26-50"
+        },
+        {
+          "text": "51-70"
+        },
+        {
+          "text": "70+"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Hello",
+      "examples": [
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hi"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Health",
+      "examples": [
+        {
+          "text": "Low blood pressure"
+        },
+        {
+          "text": "Do you have fever"
+        },
+        {
+          "text": "Are you suffering from pain"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "sys-number",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "gender",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "female",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "male",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "other",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Yes_No",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Yes",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "No",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    },
+    "from-sample": true
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Medium Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at medium risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1592674220523",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_4_1592674328684",
+      "previous_sibling": "node_2_1592674310736"
+    },
+    {
+      "type": "standard",
+      "title": "High Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at high risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1592674220523",
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_2_1592674310736"
+    },
+    {
+      "type": "standard",
+      "title": "Travel(No)",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you travelled anywhere internationally in the last 14 days? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1592670024616",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_9_1592673689833",
+      "previous_sibling": "node_8_1592673799249"
+    },
+    {
+      "type": "standard",
+      "title": "Travel(Yes)",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you travelled anywhere internationally in the last 14 days? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1592670024616",
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_8_1592673799249"
+    },
+    {
+      "type": "standard",
+      "title": "Contact",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you recently interacted or lived with someone who has tested positive for COVID-19? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_8_1592673799249",
+      "conditions": "@Yes_No",
+      "dialog_node": "node_2_1592673933410"
+    },
+    {
+      "type": "standard",
+      "title": "Medium Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at medium risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1592670545846",
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_5_1592671192294",
+      "previous_sibling": "node_5_1592670711665"
+    },
+    {
+      "type": "standard",
+      "title": "Low Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at very low risk."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1592670545846",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_5_1592670711665"
+    },
+    {
+      "type": "standard",
+      "title": "Contact",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you recently interacted or lived with someone who has tested positive for COVID-19? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1592671010431",
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_1_1592671824468",
+      "previous_sibling": "node_4_1592671089033"
+    },
+    {
+      "type": "standard",
+      "title": "Contact",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you recently interacted or lived with someone who has tested positive for COVID-19? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1592671010431",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_4_1592671089033"
+    },
+    {
+      "type": "slot",
+      "parent": "node_6_1592636969705",
+      "dialog_node": "slot_5_1592666797929"
+    },
+    {
+      "type": "standard",
+      "title": "High Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at high risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1592671824468",
+      "conditions": "@Yes_No",
+      "dialog_node": "node_3_1592672349088"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": []
+      },
+      "parent": "node_2_1592670456854",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_4_1592671089033"
+      },
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_9_1592671525071",
+      "previous_sibling": "node_1_1592670545846"
+    },
+    {
+      "type": "standard",
+      "title": "Contact",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you recently interacted or lived with someone who has tested positive for COVID-19? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1592670456854",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_1_1592670545846"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at high risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1592671089033",
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_5_1592672169861",
+      "previous_sibling": "node_2_1592672120125"
+    },
+    {
+      "type": "standard",
+      "title": "Medium Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at medium risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1592671089033",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_2_1592672120125"
+    },
+    {
+      "type": "standard",
+      "title": "High Risk",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are at high risk"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1592673933410",
+      "conditions": "@Yes_No",
+      "dialog_node": "node_1_1592674025921"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_5_1592666797929",
+      "event_name": "focus",
+      "dialog_node": "handler_1_1592666797943",
+      "previous_sibling": "handler_8_1592666797943"
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_5_1592666797929",
+      "event_name": "input",
+      "dialog_node": "handler_8_1592666797943"
+    },
+    {
+      "type": "standard",
+      "title": "Contact",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you recently interacted or lived with someone who has tested positive for COVID-19? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1592673689833",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_5_1592674220523",
+      "previous_sibling": "node_8_1592674101831"
+    },
+    {
+      "type": "standard",
+      "parent": "node_9_1592673689833",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_2_1592673933410"
+      },
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_8_1592674101831"
+    },
+    {
+      "type": "standard",
+      "title": "Travel(Yes)",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you travelled anywhere internationally in the last 14 days? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1592670023132",
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_6_1592671010431",
+      "previous_sibling": "node_2_1592670456854"
+    },
+    {
+      "type": "standard",
+      "title": "Travel(No)",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you travelled anywhere internationally in the last 14 days? (Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1592670023132",
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_2_1592670456854"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_5_1592670024616",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Age",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "What is your age?\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@gender",
+      "dialog_node": "node_6_1592636969705",
+      "previous_sibling": "node_1_1592649175012"
+    },
+    {
+      "type": "standard",
+      "title": "Diseases(No)",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you ever had any one of the following:\nDiabetes\nHypertension\nLung disease\nHeart disease\n(Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@Yes_No:No",
+      "dialog_node": "node_10_1592670023132",
+      "previous_sibling": "node_5_1592669637083"
+    },
+    {
+      "type": "standard",
+      "title": "Symptoms",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "1. Are you experiencing any of the following symptoms?\nCough\nFever\nDifficulty in Breathing\n(Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@sys-number",
+      "dialog_node": "node_5_1592669637083",
+      "previous_sibling": "node_6_1592636969705"
+    },
+    {
+      "type": "standard",
+      "title": "Gender",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "What is your gender? Male/Female/Other"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#continue",
+      "dialog_node": "node_1_1592649175012",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Diseases(Yes)",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you ever had any one of the following:\nDiabetes\nHypertension\nLung disease\nHeart disease\n(Yes/No)"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "@Yes_No:Yes",
+      "dialog_node": "node_5_1592670024616",
+      "previous_sibling": "node_10_1592670023132"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. Welcome to Corona Symptom Self-Checker.  Check yourself for coronavirus symptoms.\nType \"continue\" to give the test"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Hello || welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
